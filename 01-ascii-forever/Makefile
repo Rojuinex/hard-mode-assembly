@@ -10,6 +10,14 @@ boot.img: boot.bin
 boot.bin: boot.hex
 	cat boot.hex | xxd -ps -r > boot.bin
 
+boot.hex: boot.asm
+	cat boot.asm |\
+		sed -E 's/^[^;]+//' |\
+		sed -E 's/;[^-]*//' |\
+		sed -E 's/;.*//' |\
+		sed -E 's/-- //' \
+		> boot.hex
+
 run:
 	qemu-system-i386 -drive format=raw,file=boot.img --nographic
 
@@ -17,3 +25,4 @@ clean:
 	rm -f boot.img
 	rm -f boot.img.tmp
 	rm -f boot.bin
+	rm -f boot.hex

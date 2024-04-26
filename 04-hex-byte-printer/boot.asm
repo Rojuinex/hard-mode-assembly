@@ -37,7 +37,7 @@ _print_nibble:
 ; 0-9 => 0x30-0x39
 ; A-F => 0x41-0x46
 
-	CMP AL, 0x0A                ;-- 3C0A00
+	CMP AL, 0x0A                ;-- 3C0A
 	JS _print_nibble_1          ;-- 7802
 	ADD AL, 0x07                ;-- 0407
 	_print_nibble_1:

@@ -1,8 +1,15 @@
 _entry:
 	MOV  SP, 0x1000   ;-- BC0010
-	CALL _get_key     ;-- E80A00
+	CALL _get_key     ;-- E81300
+
+	CMP AL, 0x0D      ;-- 3C0D
+	JNE _disp_char    ;-- 7505
+	CALL _put_char    ;-- E80700
+	MOV AL, 0x0A      ;-- B00A
+
+	_disp_char:
 	CALL _put_char    ;-- E80200
-	JMP  _entry       ;-- EBF8
+	JMP  _entry       ;-- EBEC
 
 
 _put_char:

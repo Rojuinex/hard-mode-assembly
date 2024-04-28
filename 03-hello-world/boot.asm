@@ -17,7 +17,7 @@ _print_string:
 	_print_string_loop:
 		MOV AL, [BX]             ;-- 8B07      ; 2    7C0F
 		INC BX                   ;-- 43        ; 1    7C11
-		OR AL, AL                ;-- 09C0      ; 2    7C13
+		OR AL, AL                ;-- 08C0      ; 2    7C13
 		JZ _print_string_done    ;-- 7405      ; 2    7C15
 		MOV AH, 0x0E             ;-- B40E      ; 2    7C17
 		INT 0x10                 ;-- CD10      ; 2    7C19

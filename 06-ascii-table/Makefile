@@ -1,7 +1,12 @@
 .PHONY: run debug clean
 
 boot.img: boot.bin
-	$(eval n := $(shell echo "$$((510-$$(wc -c < boot.bin | xargs)))"))
+	$(eval n := $(shell echo "$$(wc -c < boot.bin | xargs)"))
+	@if [ "$n" -gt 510 ]; then \
+		echo "boot.bin to large, $n, must be lessthan or 510 bytes"; \
+		exit 1; \
+	fi
+	$(eval n := $(shell echo "$$((510-$n))"))
 	cat boot.bin > boot.img.tmp
 	dd if=/dev/zero bs=1 count=$n >> boot.img.tmp
 	echo -n "55AA" | xxd -ps -r >> boot.img.tmp

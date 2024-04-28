@@ -29,6 +29,16 @@ run:
 debug:
 	qemu-system-i386 -drive format=raw,file=boot.img --nographic -s -S
 
+gdb:
+	gdb \
+		-ex 'set architecture i8086' \
+		-ex 'break *0x7C00' \
+		-ex 'layout regs' \
+		-ex 'layout n' \
+		-ex 'target remote localhost:1234'
+
+
+
 clean:
 	rm -f boot.img
 	rm -f boot.img.tmp
